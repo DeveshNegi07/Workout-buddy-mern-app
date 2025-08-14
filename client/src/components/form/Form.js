@@ -14,6 +14,8 @@ const Form = () => {
     setUpdateFormData,
   } = useContext(workoutData);
 
+  const url = process.env.REACT_APP_BACKEND_URL;
+
   //POST FORM FUNCTION
   const handlePostFormChange = (e) => {
     const { name, value } = e.target;
@@ -22,7 +24,7 @@ const Form = () => {
   const postWorkout = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:4000/api/workouts", postFormData, {
+      await axios.post(`${url}/api/workouts`, postFormData, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -49,7 +51,7 @@ const Form = () => {
     const { _id, title, reps, load } = updateFormData;
     try {
       await axios.patch(
-        `http://localhost:4000/api/workouts/${_id}`,
+        `${url}/api/workouts/${_id}`,
         {
           title,
           reps,
